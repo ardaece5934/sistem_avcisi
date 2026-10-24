@@ -27,6 +27,12 @@ SITELER = [
         "url": "https://www.sinerji.gen.tr/hazir-sistemler-c-2116",
         "kutu_class": "product",
         "fiyat_class": "price"
+    },
+    {
+        "isim": "İncehesap",
+        "url": "https://www.incehesap.com/gaming-pc-fiyatlari/",
+        "kutu_class": "card",
+        "fiyat_class": "text-orange-500"
     }
 ]
 
