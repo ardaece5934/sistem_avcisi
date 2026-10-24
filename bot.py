@@ -93,6 +93,29 @@ def tarama_tetikle():
     fiyat_kontrol_et()
     return "Tarama tamamlandı."
 
+@app.route('/test_et')
+def test_et():
+    rapor = "🛠️ CLASS TEST RAPORU 🛠️\n\n"
+    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"}
+    
+    for site in SITELER:
+        try:
+            response = requests.get(site['url'], headers=headers)
+            soup = BeautifulSoup(response.content, "html.parser")
+            ilk_sistem = soup.find(class_=site["kutu_class"])
+            
+            if ilk_sistem:
+                fiyat_etiketi = ilk_sistem.find(class_=site["fiyat_class"])
+                fiyat_metni = fiyat_etiketi.text.strip().replace('\n', ' ') if fiyat_etiketi else "Fiyat Bulunamadı"
+                rapor += f"✅ {site['isim']} OK!\nÖrnek Çekilen Fiyat: {fiyat_metni[:20]}\n\n"
+            else:
+                rapor += f"❌ {site['isim']} HATA! Kutu bulunamadı.\n\n"
+        except Exception as e:
+            rapor += f"⚠️ {site['isim']} ÇÖKTÜ: {e}\n\n"
+            
+    telegram_mesaj_gonder(rapor)
+    return "Test raporu Telegram'a gonderildi! Telefonuna bak."
+
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
