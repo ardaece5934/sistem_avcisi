@@ -106,12 +106,12 @@ def test_et():
             
             if ilk_sistem:
                 fiyat_etiketi = ilk_sistem.find(class_=site["fiyat_class"])
-                fiyat_metni = fiyat_etiketi.text.strip().replace('\n', ' ') if fiyat_etiketi else "Fiyat Bulunamadı"
-                rapor += f"✅ {site['isim']} OK!\nÖrnek Çekilen Fiyat: {fiyat_metni[:20]}\n\n"
+                fiyat_metni = fiyat_etiketi.text.strip().replace('\n', ' ') if fiyat_etiketi else "Fiyat Bulunamadi"
+                rapor += f"✅ {site['isim']} OK!\nOrnek Fiyat: {fiyat_metni[:25]}\n\n"
             else:
-                rapor += f"❌ {site['isim']} HATA! Kutu bulunamadı.\n\n"
+                rapor += f"❌ {site['isim']} HATA! Kutu bulunamadi.\n\n"
         except Exception as e:
-            rapor += f"⚠️ {site['isim']} ÇÖKTÜ: {e}\n\n"
+            rapor += f"⚠️ {site['isim']} COKTU: {e}\n\n"
             
     telegram_mesaj_gonder(rapor)
     return "Test raporu Telegram'a gonderildi! Telefonuna bak."
